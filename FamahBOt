@@ -1,3 +1,4 @@
+
 class FamahBot {
   constructor(name, linkedBike) {
     this.name = name;
@@ -69,11 +70,6 @@ class FamahBot {
 
       let totalPoints = accessmove - enemyScore;
 
-      if (accessmove > maxPoints) {
-        maxPoints = accessmove;
-        goodMoves = [[moves[allmoves].xMove, moves[allmoves].yMove]];
-      }
-
       if (totalPoints > maxPoints) {
         maxPoints = totalPoints;
         goodMoves = [[moves[allmoves].xMove, moves[allmoves].yMove]];
@@ -138,10 +134,30 @@ class FamahBot {
         enemyMoves[move].xMove,
         enemyMoves[move].yMove
       );
+
       if (score > maxEnemyScore) {
         maxEnemyScore = score;
       }
     }
+
+    let EnemySpace = cloneArena.getAvailableTilesNumber(cloneEnemy.x, cloneEnemy.y);
+
+    let BadPlay = EnemySpace/maxEnemyScore 
+
+    if(BadPlay) {
+      
+      let randomMoveEnemy = Math.floor(Math.random() * enemyMoves.length);
+      let randomEnemyScore = cloneArena.getAvailableTilesNumber(
+        enemyMoves[randomMoveEnemy].xMove,
+        enemyMoves[randomMoveEnemy].yMove
+      );
+
+      let randomEnemyScoreAleatoir = (maxEnemyScore * 0.8) + (randomEnemyScore * 0.2);
+
+      return randomEnemyScoreAleatoir;
+
+    }
+    
     return maxEnemyScore;
   }
 }
